@@ -11,8 +11,8 @@ export const ContactList = ({ children }) => {
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter?.toLowerCase() || '')
   );
-  const loading = useSelector(selectLoading)
-  const error = useSelector(selectError)
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
 
   useEffect(() => {

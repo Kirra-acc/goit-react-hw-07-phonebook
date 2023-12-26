@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './ListItem.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../store/phonebookSlice.js';
+// import { deleteContact } from '../../store/phonebookSlice.js';
+import { deleteContactsThunk } from 'store/operations';
 
 export const ListItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const ListItem = ({ name, number, id }) => {
       <button
         className={s.deleteBtn}
         type="button"
-        onClick={() => dispatch(deleteContact(id))}
+        onClick={() => dispatch(deleteContactsThunk(id))}
       >
         Delete
       </button>

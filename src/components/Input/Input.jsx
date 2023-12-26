@@ -1,6 +1,7 @@
 import s from './Input.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../store/phonebookSlice.js';
+// import { addContact } from '../../store/phonebookSlice.js';
+import { addContactsThunk } from 'store/operations';
 
 export const Input = () => {
   const dispatch = useDispatch();
@@ -15,12 +16,11 @@ export const Input = () => {
       return;
     }
     try {
-      dispatch(addContact({ name, number }));
+      dispatch(addContactsThunk({ name, number }));
     } finally {
       event.target.reset();
     }
   };
-  
 
   return (
     <form className={s.formBox} autoComplete="off" onSubmit={createContact}>

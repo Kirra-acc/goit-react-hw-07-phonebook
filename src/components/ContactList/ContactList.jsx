@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ListItem } from '../ListItem/ListItem.jsx';
 import s from './ContactList.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContasctsThunk } from 'store/operations.js';
+import { selectError, selectLoading } from 'store/selector.js';
 
 export const ContactList = ({ children }) => {
   const contacts = useSelector(state => state.phonebook.contacts);
@@ -9,6 +11,13 @@ export const ContactList = ({ children }) => {
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter?.toLowerCase() || '')
   );
+  const loading = useSelector(selectLoading)
+  const error = useSelector(selectError)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContasctsThunk());
+  }, [dispatch]);
 
   return (
     <>
@@ -22,6 +31,8 @@ export const ContactList = ({ children }) => {
           ))}
         </ul>
       )}
+      {loading && <h1>Loading...</h1>}
+      {error && <h1>{error}</h1>}
     </>
   );
 };

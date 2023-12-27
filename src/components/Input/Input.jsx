@@ -2,10 +2,11 @@ import s from './Input.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 // import { addContact } from '../../store/phonebookSlice.js';
 import { addContactsThunk } from 'store/operations';
+import { selectContacts } from 'store/selector';
 
 export const Input = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(selectContacts);
 
   const createContact = event => {
     event.preventDefault();

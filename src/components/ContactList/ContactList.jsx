@@ -3,11 +3,11 @@ import { ListItem } from '../ListItem/ListItem.jsx';
 import s from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContasctsThunk } from 'store/operations.js';
-import { selectError, selectLoading } from 'store/selector.js';
+import { selectContacts, selectError, selectFilter, selectLoading } from 'store/selector.js';
 
 export const ContactList = ({ children }) => {
-  const contacts = useSelector(state => state.phonebook.contacts);
-  const filter = useSelector(state => state.phonebook.filter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter?.toLowerCase() || '')
   );

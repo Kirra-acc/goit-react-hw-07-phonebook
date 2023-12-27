@@ -8,7 +8,7 @@ import {
 const initialState = {
   contacts: {
     items: [],
-    isLoading: false,
+    loading: false,
     error: null,
   },
   filter: '',
@@ -26,22 +26,22 @@ export const phonebookSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchContasctsThunk.fulfilled, (state, { payload }) => {
-        state.contacts = payload;
-        state.loading = false;
+        state.contacts.items = payload;
+        state.contacts.loading = false;
       })
       .addCase(deleteContactsThunk.fulfilled, (state, { payload }) => {
-        state.contacts = state.contacts.filter(item => item.id !== payload.id);
+        state.contacts.items = state.contacts.items.filter(item => item.id !== payload.id);
       })
       .addCase(addContactsThunk.fulfilled, (state, { payload }) => {
-        state.contacts.push(payload);
+        state.contacts.items.push(payload);
         // state.contacts.isLoading = false;
       })
       .addCase(fetchContasctsThunk.pending, state => {
-        state.loading = true;
+        state.contacts.loading = true;
       })
       .addCase(fetchContasctsThunk.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload;
+        state.contacts.loading = false;
+        state.contacts.error = payload;
       });
   },
 });

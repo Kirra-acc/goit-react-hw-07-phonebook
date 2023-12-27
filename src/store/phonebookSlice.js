@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContasctsThunk } from './operations';
+import {
+  addContactsThunk,
+  deleteContactsThunk,
+  fetchContasctsThunk,
+} from './operations';
 // import { nanoid } from 'nanoid';
 
 export const phonebookSlice = createSlice({
@@ -38,6 +42,13 @@ export const phonebookSlice = createSlice({
       .addCase(fetchContasctsThunk.fulfilled, (state, { payload }) => {
         state.contacts = payload;
         state.loading = false;
+      })
+      .addCase(deleteContactsThunk.fulfilled, (state, { payload }) => {
+        state.contacts = state.contacts.filter(item => item.id !== payload.id);
+      })
+      .addCase(addContactsThunk.fulfilled, (state, { payload }) => {
+        state.contacts.push(payload);
+        // state.contacts.isLoading = false;
       })
       .addCase(fetchContasctsThunk.pending, state => {
         state.loading = true;

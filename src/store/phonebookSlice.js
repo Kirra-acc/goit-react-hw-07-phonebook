@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchContasctsThunk } from './operations';
 // import { nanoid } from 'nanoid';
 
 export const phonebookSlice = createSlice({
@@ -31,6 +32,20 @@ export const phonebookSlice = createSlice({
     addContact: (state, { payload }) => {
       state.contacts.push(payload);
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContasctsThunk.fulfilled, (state, { payload }) => {
+        state.contacts = payload;
+        state.loading = false;
+      })
+      .addCase(fetchContasctsThunk.pending, state => {
+        state.loading = true;
+      })
+      .addCase(fetchContasctsThunk.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      });
   },
 });
 

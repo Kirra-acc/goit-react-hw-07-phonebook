@@ -4,37 +4,23 @@ import {
   deleteContactsThunk,
   fetchContasctsThunk,
 } from './operations';
-// import { nanoid } from 'nanoid';
+
+const initialState = {
+  contacts: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+  filter: '',
+};
+
 
 export const phonebookSlice = createSlice({
   name: 'phonebook',
-  initialState: {
-    contacts: [],
-    filter: '',
-    loading: false,
-    error: '',
-  },
+  initialState,
   reducers: {
-    fetchingData: (state, { payload }) => {
-      state.contacts = payload;
-      state.loading = false;
-    },
-    isPending: (state, { payload }) => {
-      state.loading = true;
-      state.error = '';
-    },
-    isError: (state, { payload }) => {
-      state.error = payload;
-      state.loading = false;
-    },
-    deleteContact: (state, { payload }) => {
-      state.contacts = state.contacts.filter(contact => contact.id !== payload);
-    },
     setFilter: (state, { payload }) => {
       state.filter = payload;
-    },
-    addContact: (state, { payload }) => {
-      state.contacts.push(payload);
     },
   },
   extraReducers: builder => {
@@ -60,13 +46,6 @@ export const phonebookSlice = createSlice({
   },
 });
 
-export const {
-  deleteContact,
-  setFilter,
-  addContact,
-  fetchingData,
-  isPending,
-  isError,
-} = phonebookSlice.actions;
+export const { setFilter } = phonebookSlice.actions;
 
 export default phonebookSlice.reducer;
